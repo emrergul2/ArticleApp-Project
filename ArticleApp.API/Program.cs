@@ -1,5 +1,8 @@
 using System.Reflection;
 using ArticleApp.Repository.Contexts;
+using ArticleApp.Service.Mapping;
+using ArticleApp.Service.Validations;
+using FluentValidation.AspNetCore;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 
@@ -24,6 +27,10 @@ builder.Services.AddDbContext<ArticleAppDbContext>(x =>
         option.MigrationsAssembly(Assembly.GetAssembly(typeof(ArticleAppDbContext)).GetName().Name);
     });
 });
+
+builder.Services.AddAutoMapper(typeof(MapProfile));
+
+builder.Services.AddControllers().AddFluentValidation(x => x.RegisterValidatorsFromAssemblyContaining<CategoryValidator>());
 
 var app = builder.Build();
 
