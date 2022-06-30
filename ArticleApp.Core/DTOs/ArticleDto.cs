@@ -7,7 +7,6 @@ namespace ArticleApp.Core.DTOs
 {
     public class ArticleDto : BaseDto, IDto
     {
-        public string Title { get; set; }
         public string Summary { get; set; }
         public string ArticleText { get; set; }
     }
