@@ -1,7 +1,10 @@
 using System.Reflection;
+using ArticleApp.API.Modules;
 using ArticleApp.Repository.Contexts;
 using ArticleApp.Service.Mapping;
 using ArticleApp.Service.Validations;
+using Autofac;
+using Autofac.Extensions.DependencyInjection;
 using FluentValidation.AspNetCore;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
@@ -27,6 +30,9 @@ builder.Services.AddDbContext<ArticleAppDbContext>(x =>
         option.MigrationsAssembly(Assembly.GetAssembly(typeof(ArticleAppDbContext)).GetName().Name);
     });
 });
+
+builder.Host.UseServiceProviderFactory(new AutofacServiceProviderFactory());
+builder.Host.ConfigureContainer<ContainerBuilder>(containerBuilder => containerBuilder.RegisterModule(new RepositoryServiceModule()));
 
 builder.Services.AddAutoMapper(typeof(MapProfile));
 

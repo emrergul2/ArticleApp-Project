@@ -11,6 +11,7 @@ namespace ArticleApp.Service.Mapping
             CreateMap<Author, AuthorDto>().ReverseMap();
             CreateMap<Article, ArticleDto>().ReverseMap();
             CreateMap<Category, CategoryDto>().ReverseMap();
+            CreateMap<Article, ArticleInsertDto>().ReverseMap();
         }
     }
 }
