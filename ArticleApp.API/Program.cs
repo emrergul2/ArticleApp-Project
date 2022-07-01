@@ -19,6 +19,8 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+builder.Services.AddMemoryCache();
+
 var sqlConBuilder = new SqlConnectionStringBuilder();
 sqlConBuilder.ConnectionString = builder.Configuration.GetConnectionString("MsSqlConnectionString");
 sqlConBuilder.UserID = builder.Configuration["uid"];

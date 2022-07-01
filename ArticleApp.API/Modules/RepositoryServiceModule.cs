@@ -1,4 +1,5 @@
 using System.Reflection;
+using ArticleApp.Caching;
 using ArticleApp.Core.Repositories;
 using ArticleApp.Core.Services;
 using ArticleApp.Core.UnitOfWorks;
@@ -24,6 +25,8 @@ namespace ArticleApp.API.Modules
 
             builder.RegisterAssemblyTypes(apiAssembly, repoAssembly, serviceAssembly).Where(x => x.Name.EndsWith("Repository")).AsImplementedInterfaces().InstancePerLifetimeScope();
             builder.RegisterAssemblyTypes(apiAssembly, repoAssembly, serviceAssembly).Where(x => x.Name.EndsWith("Service")).AsImplementedInterfaces().InstancePerLifetimeScope();
+
+            builder.RegisterType<ArticleServiceWithCaching>().As<IArticleService>();
         }
     }
 }

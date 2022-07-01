@@ -6,10 +6,10 @@
 		<UserSecretsId>d2b17cc1-5397-41f7-885e-154203a49901</UserSecretsId>
 	</PropertyGroup>
 	<ItemGroup>
-		<PackageReference Include="Swashbuckle.AspNetCore" Version="6.2.3"/>
-		<PackageReference Include="Autofac.Extensions.DependencyInjection" Version="8.0.0"/>
+		<PackageReference Include="Swashbuckle.AspNetCore" Version="6.2.3" />
+		<PackageReference Include="Autofac.Extensions.DependencyInjection" Version="8.0.0" />
 	</ItemGroup>
 	<ItemGroup>
-		<ProjectReference Include="..\ArticleApp.Service\ArticleApp.Service.csproj"/>
+	  <ProjectReference Include="..\ArticleApp.Caching\ArticleApp.Caching.csproj" />
 	</ItemGroup>
 </Project>
