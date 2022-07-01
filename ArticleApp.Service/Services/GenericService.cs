@@ -2,6 +2,7 @@ using ArticleApp.Core.Models;
 using ArticleApp.Core.Repositories;
 using ArticleApp.Core.Services;
 using ArticleApp.Core.UnitOfWorks;
+using ArticleApp.Service.Exceptions;
 
 namespace ArticleApp.Service.Services
 {
@@ -29,6 +30,11 @@ namespace ArticleApp.Service.Services
 
         public async Task<T> GetByIdAsync(int id)
         {
+            var hasArticle = await _repository.GetByIdAsync(id);
+            if (hasArticle == null)
+            {
+                throw new NotFoundException($"{typeof(T).Name} not found.");
+            }
             return await _repository.GetByIdAsync(id);
         }
 

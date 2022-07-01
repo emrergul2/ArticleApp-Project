@@ -1,4 +1,5 @@
 using System.Reflection;
+using ArticleApp.API.Middlewares;
 using ArticleApp.API.Modules;
 using ArticleApp.Repository.Contexts;
 using ArticleApp.Service.Mapping;
@@ -46,6 +47,8 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+app.UseCustomException();
 
 app.UseHttpsRedirection();
 
