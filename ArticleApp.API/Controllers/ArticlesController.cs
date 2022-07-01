@@ -50,5 +50,11 @@ namespace ArticleApp.API.Controllers
             await _service.RemoveAsync(article);
             return CreateActionResult(CustomResponseDto<NoContentDto>.Success(204));
         }
+        [HttpGet("[action]")]
+        public async Task<IActionResult> GetArticleWithAuthorAndCategory()
+        {
+            var articles = await _service.GetArticleWithAuthorAndCategoryAsync();
+            return CreateActionResult(articles);
+        }
     }
 }

@@ -1,3 +1,4 @@
+using ArticleApp.Core.DTOs;
 using ArticleApp.Core.Models;
 using ArticleApp.Core.Repositories;
 using ArticleApp.Core.Services;
@@ -24,12 +25,12 @@ namespace ArticleApp.Caching
             _mapper = mapper;
             if (!_memoryCache.TryGetValue(CacheArticleKey, out _))
             {
-                _memoryCache.Set(CacheArticleKey, _repository.GetAllAsync().Result);
+                _memoryCache.Set(CacheArticleKey, _repository.GetArticleWithAuthorAndCategoryAsync().Result);
             }
         }
         public async Task CacheAllArticlesAsync()
         {
-            _memoryCache.Set(CacheArticleKey, await _repository.GetAllAsync());
+            _memoryCache.Set(CacheArticleKey, await _repository.GetArticleWithAuthorAndCategoryAsync());
         }
         public async Task<Article> AddAsync(Article entity)
         {
@@ -64,6 +65,13 @@ namespace ArticleApp.Caching
             _repository.Update(entity);
             await _unitOfWork.CommitAsync();
             await CacheAllArticlesAsync();
+        }
+
+        public async Task<CustomResponseDto<List<ArticleWithAuthorAndCategoryDto>>> GetArticleWithAuthorAndCategoryAsync()
+        {
+            var articles = await _repository.GetArticleWithAuthorAndCategoryAsync();
+            var articleWithAuthorAndCategoryDto = _mapper.Map<List<ArticleWithAuthorAndCategoryDto>>(articles);
+            return await Task.FromResult(CustomResponseDto<List<ArticleWithAuthorAndCategoryDto>>.Success(200, articleWithAuthorAndCategoryDto));
         }
     }
 }

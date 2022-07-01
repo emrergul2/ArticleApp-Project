@@ -1,7 +1,15 @@
+using ArticleApp.WebUI.Services;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+
+builder.Services.AddHttpClient<ArticleApiService>(opt =>
+{
+    opt.BaseAddress = new Uri(builder.Configuration["BaseUrl"]);
+
+});
 
 var app = builder.Build();
 
@@ -20,8 +28,10 @@ app.UseRouting();
 
 app.UseAuthorization();
 
-app.MapControllerRoute(
-    name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}");
+// app.MapControllerRoute(
+//     name: "default",
+//     pattern: "{controller=Article}/{action=Index}/{id?}");
+
+app.MapDefaultControllerRoute();
 
 app.Run();
